@@ -1,2 +1,2 @@
 # JAE
-Java Educational App
+Java Educational App - Senior Project
