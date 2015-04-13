@@ -3,6 +3,7 @@ package com.example.brent.jae;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -111,6 +112,10 @@ public class MainActivity extends ActionBarActivity {
         // get rid of the textView2
         TextView tv = (TextView) findViewById(R.id.textView2);
         tv.setVisibility(View.GONE);
+        stat.setVisibility(View.VISIBLE);
+        known.setVisibility(View.VISIBLE);
+        // Update the num here to grab the latest num of known
+        updateStats();
 
         qm = new QManager(db);
         questions = qm.getCat(cat);
@@ -129,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
             mainbutton.setVisibility(View.INVISIBLE);
             iknow.setVisibility(View.VISIBLE);
             dontknow.setVisibility(View.VISIBLE);
-            button.setText("Answer");
+            button.setText("Next Question");
             if (it.hasNext()) { // try to catch IOB exception
                 myTextView.setText(questions.get(aCount).getQuestion());
                 qCount++;
@@ -139,6 +144,9 @@ public class MainActivity extends ActionBarActivity {
                 myTextView.setText("That's all the questions for that category. Going home.");
                 //button.setText("Go to Categories");
                 // SystemClock.sleep(1000);
+                mainbutton.setText("Test My Knowledge");
+                iknow.setVisibility(View.GONE);
+                dontknow.setVisibility(View.GONE);
                 setContentView(R.layout.activity_main);
                 spinner();
                 aCount = 0;
@@ -158,6 +166,9 @@ public class MainActivity extends ActionBarActivity {
             }
             else{
                 myTextView.setText("That's all the questions for that category. Choose another category?");
+                mainbutton.setText("Test My Knowledge");
+                iknow.setVisibility(View.GONE);
+                dontknow.setVisibility(View.GONE);
                 //button.setText("Go to Categories");
                 setContentView(R.layout.activity_main);
             }
@@ -172,8 +183,12 @@ public class MainActivity extends ActionBarActivity {
         iknow.setVisibility(View.INVISIBLE);
         dontknow.setVisibility(View.INVISIBLE);
         mainbutton.setVisibility(View.VISIBLE);
+
+        Button thisbutton = (Button) v;
+        Log.d("Button", thisbutton.getText().toString());
         if ((qCount & 1) == 0) { // even is if it is a question
 //            button.setText("Answer");
+            Log.d("Displaying question?", "QUESTION");
             if (it.hasNext()) { // try to catch IOB exception
                 myTextView.setText(questions.get(aCount).getQuestion());
                 qCount++;
@@ -181,6 +196,9 @@ public class MainActivity extends ActionBarActivity {
             }
             else{
                 myTextView.setText("That's all the questions for that category. Going home.");
+                mainbutton.setText("Test My Knowledge");
+                iknow.setVisibility(View.GONE);
+                dontknow.setVisibility(View.GONE);
                 //button.setText("Go to Categories");
                 // SystemClock.sleep(1000);
                 setContentView(R.layout.activity_main);
@@ -193,17 +211,41 @@ public class MainActivity extends ActionBarActivity {
         }
         else{ // odd is if it is an answer
 //            button.setText("Next Question");
+            Log.d("Displaying answer?", "ANSWER");
+            Log.d("Question ID: ", ""+(questions.get(aCount).getId()));
+            int id = questions.get(aCount).getId();
             if(it.hasNext()) { // try to catch IOB exception
                 myTextView.setText(questions.get(aCount).getAnswer());
                 qCount++;
                 aCount++;
+
+                // Update database here as well
+                if (thisbutton.getText().equals("I Know this question")) {
+                    db.setKnown(id);
+                    Log.d("Num known", ""+db.getKnownCount());
+                    updateStats();
+                }
+                else {
+                    db.setNotKnown(id);
+                    Log.d("Num known", ""+db.getKnownCount());
+                    updateStats();
+                }
             }
             else{
                 myTextView.setText("That's all the questions for that category. Choose another category?");
+                mainbutton.setText("Test My Knowledge");
+                iknow.setVisibility(View.GONE);
+                dontknow.setVisibility(View.GONE);
                 //button.setText("Go to Categories");
                 setContentView(R.layout.activity_main);
             }
         }
+    }
+
+    public void updateStats() {
+        int count = db.getKnownCount();
+        int totalcount = db.getTotalCount();
+        known.setText(" " + count + " of the " + totalcount + " questions.");
     }
 
     @Override

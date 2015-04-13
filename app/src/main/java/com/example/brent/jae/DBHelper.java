@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        deleteDb(context);
+//        deleteDb(context);
     }
 
     @Override
@@ -132,10 +132,34 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void setKnown(int question) {
         String sql = "UPDATE " + QUESTION_TABLE +
-                "SET " + KEY_KNOWS + "=1 " +
+                " SET " + KEY_KNOWS + "=1 " +
                 "WHERE " + KEY_ID + "= " + question;
         dBase = this.getWritableDatabase();
         dBase.execSQL(sql);
+    }
+
+    public void setNotKnown(int question) {
+        String sql = "UPDATE " + QUESTION_TABLE +
+                " SET " + KEY_KNOWS + "=0 " +
+                "WHERE " + KEY_ID + "= " + question;
+        dBase = this.getWritableDatabase();
+        dBase.execSQL(sql);
+    }
+
+    public int getKnownCount() {
+        String sql = "SELECT COUNT(id) from " + QUESTION_TABLE + " where knows=1";
+        dBase = this.getReadableDatabase();
+        Cursor cursor = dBase.rawQuery(sql, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(id) from " + QUESTION_TABLE;
+        dBase = this.getReadableDatabase();
+        Cursor cursor = dBase.rawQuery(sql, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
     public void deleteDb(Context context){

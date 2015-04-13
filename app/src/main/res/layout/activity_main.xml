@@ -53,20 +53,27 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="You know"
+        android:textSize="15sp"
         android:id="@+id/stats"
-        android:layout_marginBottom="58dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_below="@+id/dontknow"
+        android:layout_alignLeft="@+id/dontknow"
+        android:layout_alignStart="@id/dontknow"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_alignParentBottom="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" 0"
+        android:textSize="15sp"
         android:id="@+id/known"
         android:layout_alignTop="@+id/stats"
         android:layout_toRightOf="@+id/stats"
-        android:layout_toEndOf="@+id/stats" />
+        android:layout_toEndOf="@+id/stats"
+        style="@style/AppTheme" />
 
     <Button
         android:layout_width="wrap_content"
