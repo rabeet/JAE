@@ -3,6 +3,7 @@ package com.example.brent.jae;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -53,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         //Database
         db = new DBHelper(this);
         qm = new QManager(db);
-       // db.deleteDb(this);
+        db.deleteDb(this);
 
         questions = new ArrayList<>();
         questions = db.getAllQuestions();
@@ -86,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
         // lets try initializing all the vars when button is pressed
         known = (TextView) findViewById(R.id.known);
         // myTextView is used to show both the question and the answer
-        myTextView = (TextView) findViewById(R.id.textView);
+        TextView tv = (TextView) findViewById(R.id.textView);
         iKnow = (Button) findViewById(R.id.iknow);
         dontKnow = (Button) findViewById(R.id.dontknow);
         nextQ = (Button) findViewById(R.id.nextQ);
@@ -96,7 +98,14 @@ public class MainActivity extends ActionBarActivity {
         iKnow.setVisibility(View.INVISIBLE);
         dontKnow.setVisibility(View.INVISIBLE);
         nextQ.setVisibility(View.VISIBLE);
-        //
+
+        // try to use a scroller...
+        //ScrollView scroller = new ScrollView(this);
+        //TextView tv = (TextView) findViewById(R.id.textView);
+        //scroller.addView(tv);
+
+        // set scroller?
+        tv.setMovementMethod(new ScrollingMovementMethod());
 
         Button thisButton = (Button) v;
         int id = questions.get(currentQ).getId();
@@ -107,7 +116,8 @@ public class MainActivity extends ActionBarActivity {
                 updateStats();
                 currentQ++;
                 if (it.hasNext()) {
-                    myTextView.setText(questions.get(currentQ).getQuestion());
+                    tv.setText(questions.get(currentQ).getQuestion());
+
                 }
                 else
                     goHome();
@@ -119,14 +129,16 @@ public class MainActivity extends ActionBarActivity {
                 db.setNotKnown(id);
                 updateStats();
                 if (it.hasNext()) {
-                    myTextView.setText(questions.get(currentQ).getAnswer());
+                    tv.setText(questions.get(currentQ).getAnswer());
+                    //tv.setMovementMethod(new ScrollingMovementMethod());
                     currentQ++;
                 }
                 else
                     goHome();
                 break;
             case R.id.nextQ:
-                myTextView.setText(questions.get(currentQ).getQuestion());
+                tv.setText(questions.get(currentQ).getQuestion());
+                //tv.setMovementMethod(new ScrollingMovementMethod());
                 iKnow.setVisibility(View.VISIBLE);
                 dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
