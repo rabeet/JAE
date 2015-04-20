@@ -39,8 +39,7 @@ public class MainActivity extends ActionBarActivity {
     private DBHelper db;
     private QManager qm;
     private int cat;
-    private final String [] categories = {"All", "Core Java", "OOP Concepts", "Exception Handling",
-            "Multithreading", "Collections"};
+    private final String [] categories = {"All", "Core Java", "OOP Concepts", "Exception Handling", "Multithreading", "Collections"};
 
     //The onCreate function is called when your app is run and
     // it is expected to create the view and do the whatever the Activity is concerned with.
@@ -56,24 +55,17 @@ public class MainActivity extends ActionBarActivity {
         //Database
         db = new DBHelper(this);
         qm = new QManager(db);
+        //db.deleteDb(this);
 
         questions = new ArrayList<>();
         questions = db.getAllQuestions();
         totalQuestions = questions.size();
-        // if questions is empty then the db gets initialized.
         if (questions.isEmpty())
             qm.initData();
-        // display category selection
         spinner();
 
     }
 
-    /***
-     *  Responds to the first click "Test My Knowledge"
-     *  sets buttons visibility of buttons and gets populates questions list based
-     *  on the category from spinner
-     * @param v object from the button click
-     */
     public void buttonOnClick(View v){
 
         qm = new QManager(db);
@@ -81,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
 
         // change the view to the new question.XML file
         setContentView(R.layout.question);
+        // TODO: Display first question to user and then let knownClick() handle the rest
         myTextView = (TextView) findViewById(R.id.textView);
         myTextView.setText(questions.get(currentQ).getQuestion());
         nextQ = (Button) findViewById(R.id.nextQ);
@@ -90,11 +83,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    /***
-     *  Responds to the known/not known click and next question. updates database based on the stats
-     *  gathered from user and presents them
-     * @param v
-     ***/
     public void knownClick(View v) {
 
         // lets try initializing all the vars when button is pressed
@@ -190,16 +178,19 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    /***
-     *  Sets up the spinner to display the categories. User selection is saved as an int that is
-     *  then used as an index in the "cat" String array
-     */
     public void spinner(){
         // spinner listener
         AdapterView.OnItemSelectedListener onSpinner = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cat = position;
+
+                /* // testing the output of item selected
+                TextView myTextView = (TextView) findViewById(R.id.textView2);
+                // position is the index of the string array
+                myTextView.setText(Integer.toString(position));
+                */
+
             }
 
             @Override
