@@ -42,7 +42,7 @@ public class QManager {
         // Constructor: (int category, int known, String question, String answer)
         Question q0 = new Question(5, 0, "What is the difference between a ArrayList and a Vector", "ArrayList is not " +
                 "synchronized. Vector is synchronized." +
-                "ArrayList is not a legacy class. Vector is a legacy class " +
+                "ArrayList is not a legacy class. Vector is a legacy class. " +
                 "ArrayList increases its size by 50% of the array size. Vector increases its size by doubling the array size" );
         Question q1 = new Question(5, 0, "What is the difference between ArrayList and LinkedList?", "ArrayList uses a " +
                 "dynamic array. LinkedList uses a doubly linked list. " +

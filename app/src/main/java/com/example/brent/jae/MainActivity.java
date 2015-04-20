@@ -130,7 +130,6 @@ public class MainActivity extends ActionBarActivity {
                 updateStats();
                 if (it.hasNext()) {
                     tv.setText(questions.get(currentQ).getAnswer());
-                    //tv.setMovementMethod(new ScrollingMovementMethod());
                     currentQ++;
                 }
                 else
@@ -138,7 +137,6 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case R.id.nextQ:
                 tv.setText(questions.get(currentQ).getQuestion());
-                //tv.setMovementMethod(new ScrollingMovementMethod());
                 iKnow.setVisibility(View.VISIBLE);
                 dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
@@ -224,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
     public void goHome(){
         setContentView(R.layout.activity_main);
         spinner();
-        updateStats();
+        //updateStats();
         currentQ = 0;
 
 
