@@ -163,8 +163,81 @@ public class QManager {
         Question q3 = new Question(4, 0, "Why should a thread not be stopped by calling its method stop()", "A thread should not be stopped" +
                 " by using the deprecated method stop() because this method causes the thread to unlock all monitors it has acquired. If any object " +
                 "protected by one of the released locks was in an inconsistent state, this state gets visible to all other threads.");
-        // Adding "" category questions. Category #
 
+        // Adding "Core Java" category questions. Category #1
+        db.addQuestion(new Question(1,0,"What is difference between JDK,JRE and JVM?","JVM\n" +
+                "\n" +
+                "JVM is an acronym for Java Virtual Machine, it is an abstract machine which provides the runtime environment in which java bytecode can be executed.\n" +
+                "\n" +
+                "JVMs are available for many hardware and software platforms (so JVM is plateform dependent).\n" +
+                "JRE\n" +
+                "\n" +
+                "JRE stands for Java Runtime Environment. It is the implementation of JVM and physically exists.\n" +
+                "JDK\n" +
+                "\n" +
+                "JDK is an acronym for Java Development Kit. It physically exists. It contains JRE + development tools."));
+        db.addQuestion(new Question(1,0,"How many types of memory areas are allocated by JVM?","Many types:\n" +
+                "\n" +
+                "    Class(Method) Area\n" +
+                "    Heap\n" +
+                "    Stack\n" +
+                "    Program Counter Register\n" +
+                "    Native Method Stack\n"));
+        db.addQuestion(new Question(1,0,"What is JIT compiler?","Just-In-Time(JIT) compiler:It is used to improve the performance. JIT compiles parts of the byte code that have similar functionality at the same time, and hence reduces the amount of time needed for compilation.Here the term “compiler” refers to a translator from the instruction set of a Java virtual machine (JVM) to the instruction set of a specific CPU."));
+        db.addQuestion(new Question(1,0,"What gives Java its 'write once and run anywhere' nature?","The bytecode. Java is compiled to be a byte code which is the intermediate language between source code and machine code. This byte code is not platform specific and hence can be fed to any platform."));
+        db.addQuestion(new Question(1,0,"What is constructor?","Constructor is just like a method that is used to initialize the state of an object. It is invoked at the time of object creation."));
+        db.addQuestion(new Question(1,0,"Does constructor return any value?","yes, that is current instance (You cannot use return type yet it returns a value)."));
+        db.addQuestion(new Question(1,0,"Is constructor inherited?","No, constructor can't be final."));
+        db.addQuestion(new Question(1,0,"What is static method?","\n" +
+                "    A static method belongs to the class rather than object of a class.\n" +
+                "    A static method can be invoked without the need for creating an instance of a class.\n" +
+                "    static method can access static data member and can change the value of it.\n"));
+        db.addQuestion(new Question(1,0,"Why main method is static?","because object is not required to call static method if It were non-static method,jvm creats object first then call main() method that will lead to the problem of extra memory allocation."));
+        db.addQuestion(new Question(1,0,"Can we execute a program without main() method?","Yes, one of the way is static block."));
+        db.addQuestion(new Question(1,0,"What is difference between static (class) method and instance method?","A method i.e. declared as static is known as static method whereas a method i.e. not declared as static is known as instance method." +
+                "Object is not required to call static method whereas Object is required to call instance methods." +
+                "Non-static (instance) members cannot be accessed in static context (static method, static block and static nested class) directly whereas static and non-static variables both can be accessed in instance methods."));
+        db.addQuestion(new Question(1,0,"What is this in java?","It is a keyword that that refers to the current object."));
+        db.addQuestion(new Question(1,0,"What is Inheritance?","Inheritance is a mechanism in which one object acquires all the properties and behaviour of another object of another class. It represents IS-A relationship. It is used for Code Resusability and Method Overriding."));
+        db.addQuestion(new Question(1,0,"Which class is the superclass for every class. ","Object class."));
+        db.addQuestion(new Question(1,0,"What is super in java?","It is a keyword that refers to the immediate parent class object."));
+        db.addQuestion(new Question(1,0,"What is object cloning?","The object cloning is used to create the exact copy of an object."));
+        db.addQuestion(new Question(1,0,"What is method overloading?","If a class have multiple methods by same name but different parameters, it is known as Method Overloading. It increases the readability of the program."));
+        db.addQuestion(new Question(1,0,"Can we overload main() method?","Yes, You can have many main() methods in a class by overloading the main method."));
+        db.addQuestion(new Question(1,0, "Do I need to import java.lang package any time? Why ?", "No. It is by default loaded internally by the JVM."));
+        // Adding "OOP Concets" category questions. Category #2
+        db.addQuestion(new Question(2,0,"What is difference between object oriented programming language and object based programming language?"," Object based programming languages follow all the features of OOPs except Inheritance. Examples of object based programming languages are JavaScript, VBScript etc. "));
+        db.addQuestion(new Question(2,0,"What is method overriding:","If a subclass provides a specific implementation of a method that is already provided by its parent class, it is known as Method Overriding. It is used for runtime polymorphism and to provide the specific implementation of the method"));
+        db.addQuestion(new Question(2,0,"Can we override static method?","No, you can't override the static method because they are the part of class not object. "));
+        db.addQuestion(new Question(2,0,"Why we cannot override static method?","It is because the static method is the part of class and it is bound with class whereas instance method is bound with object and static gets memory in class area and instance gets memory in heap. "));
+        db.addQuestion(new Question(2,0,"Can we override the overloaded method?","Yes. "));
+        db.addQuestion(new Question(2,0,"Can you have virtual functions in Java? ","Yes, all functions in Java are virtual by default. "));
+        db.addQuestion(new Question(2,0,"What is covariant return type? ","Now, since java5, it is possible to override any method by changing the return type if the return type of the subclass overriding method is subclass type. It is known as covariant return type."));
+        db.addQuestion(new Question(2,0,"What is final variable?","If you make any variable as final, you cannot change the value of final variable(It will be constant).more details..."));
+        db.addQuestion(new Question(2,0,"What is final method?","Final methods can't be overriden."));
+        db.addQuestion(new Question(2,0,"What is final class?","Final class can't be inherited"));
+        db.addQuestion(new Question(2,0,"What is blank final variable?","A final variable, not initalized at the time of declaration, is known as blank final variable."));
+        db.addQuestion(new Question(2,0,"Can we intialize blank final variable?","Yes, only in constructor if it is non-static. If it is static blank final variable, it can be initialized only in the static block."));
+        db.addQuestion(new Question(2,0,"Can you declare the main method as final? ","Yes, such as, public static final void main(String[] args){}."));
+        db.addQuestion(new Question(2,0,"What is Runtime Polymorphism?","Runtime polymorphism or dynamic method dispatch is a process in which a call to an overridden method is resolved at runtime rather than at compile-time.\n" +
+                "\n" +
+                "In this process, an overridden method is called through the reference variable of a super class. The determination of the method to be called is based on the object being referred to by the reference variable."));
+        db.addQuestion(new Question(2,0,"Can you achieve Runtime Polymorphism by data members?","No."));
+        db.addQuestion(new Question(2,0,"What is the difference between static binding and dynamic binding?","In case of static binding type of object is determined at compile time whereas in dynamic binding type of object is determined at runtime."));
+        db.addQuestion(new Question(2,0,"What is abstraction?"," Abstraction is a process of hiding the implementation details and showing only functionality to the user.  Abstraction lets you focus on what the object does instead of how it does it."));
+        db.addQuestion(new Question(2,0,"What is the difference between abstraction and encapsulation?","Abstraction hides the implementation details whereas encapsulation wraps code and data into a single unit."));
+        db.addQuestion(new Question(2,0,"What is abstract class?","A class that is declared as abstract is known as abstract class. It needs to be extended and its method implemented. It cannot be instantiated."));
+        db.addQuestion(new Question(2,0,"Can there be any abstract method without abstract class?","No, if there is any abstract method in a class, that class must be abstract."));
+        db.addQuestion(new Question(2,0,"Can you use abstract and final both with a method?","No, because abstract method needs to be overridden whereas you can't override final method."));
+        db.addQuestion(new Question(2,0,"Is it possible to instantiate the abstract class?","No, abstract class can never be instantiated."));
+        db.addQuestion(new Question(2,0,"What is interface?","Interface is a blueprint of a class that have static constants and abstract methods.It can be used to achieve fully abstraction and multiple inheritance."));
+        db.addQuestion(new Question(2,0,"Can you declare an interface method static?","No, because methods of an interface is abstract by default, and static and abstract keywords can't be used together. "));
+        db.addQuestion(new Question(2,0,"Can an Interface be final?","No, because its implementation is provided by another class."));
+        db.addQuestion(new Question(2,0,"What is marker interface?","An interface that have no data member and method is known as a marker interface.For example Serializable, Cloneable etc. "));
+        db.addQuestion(new Question(2,0,"What is package?","A package is a group of similar type of classes interfaces and sub-packages. It provides access protection and removes naming collision."));
+        db.addQuestion(new Question(2,0,"Can I import same package/class twice? Will the JVM load the package twice at runtime?","One can import the same package or same class multiple times. Neither compiler nor JVM complains about it.But the JVM will internally load the class only once no matter how many times you import the same class."));
+        db.addQuestion(new Question(2,0,"When can an object reference be cast to an interface reference? ","An object reference can be cast to an interface reference when the object implements the referenced interface."));
+        db.addQuestion(new Question(2,0,"What is static import ?","By static import, we can access the static members of a class directly, there is no to qualify it with the class name."));
         // adding the questions to the database.
         db.addQuestion(q0);
         db.addQuestion(q1);
