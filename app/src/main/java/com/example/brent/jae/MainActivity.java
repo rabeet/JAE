@@ -32,9 +32,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView myTextView;
     private TextView known;
     private TextView stat;
-    // Known/not known buttons
-    private Button iknow;
-    private Button dontknow;
+
     private Button nextQ;
     private DBHelper db;
     private QManager qm;
@@ -84,7 +82,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void knownClick(View v) {
-
+        Button iknow;
+        Button dontknow;
         // lets try initializing all the vars when button is pressed
         known = (TextView) findViewById(R.id.known);
         // myTextView is used to show both the question and the answer
