@@ -7,9 +7,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="About the App"
+        android:text="Java Educational App is an app that is meant to test and/or refresh your knowledge on the Java programming language. It tracks the questions that you know so you can see how well you know the material."
         android:id="@+id/aboutText"
+        android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
 </RelativeLayout>

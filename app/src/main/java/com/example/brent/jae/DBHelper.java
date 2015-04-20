@@ -1,3 +1,4 @@
+
 package com.example.brent.jae;
 
 /**
@@ -37,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//        deleteDb(context);
+        //deleteDb(context);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Question quest = new Question();
-                quest.setID(cursor.getInt(0));
+                quest.setId(cursor.getInt(0));
                 quest.setQuestion(cursor.getString(1));
                 quest.setAnswer(cursor.getString(2));
                 quest.setKnown(cursor.getInt(3));
@@ -118,7 +119,7 @@ public class DBHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     Question quest = new Question();
-                    quest.setID(cursor.getInt(0));
+                    //quest.setID(cursor.getInt(0));
                     quest.setQuestion(cursor.getString(1));
                     quest.setAnswer(cursor.getString(2));
                     quest.setKnown(cursor.getInt(3));

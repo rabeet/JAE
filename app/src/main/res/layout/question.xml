@@ -4,19 +4,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/button_material_light"
+    android:background="#ffffffff"
     android:backgroundTint="#ffffffff">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:maxLines = "8"
+        android:scrollbars = "vertical"
+        android:fadeScrollbars="false"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="47dp"
+        android:text="TEXT"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:text="TEXT" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,11 +55,11 @@
         android:longClickable="false"
         android:clickable="true"
         android:enabled="true"
-        android:typeface="serif"
         android:textStyle="italic"
         android:layout_above="@+id/stats"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@android:drawable/btn_default" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,7 +73,8 @@
         android:textStyle="italic"
         android:layout_alignTop="@+id/iknow"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/btn_default" />
 
     <Button
         android:layout_width="wrap_content"
@@ -80,6 +84,7 @@
         android:layout_above="@+id/iknow"
         android:layout_centerHorizontal="true"
         android:onClick="knownClick"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:background="@android:drawable/btn_default" />
 
 </RelativeLayout>

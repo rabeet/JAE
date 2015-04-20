@@ -3,6 +3,7 @@ package com.example.brent.jae;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,14 +34,12 @@ public class MainActivity extends ActionBarActivity {
     private TextView myTextView;
     private TextView known;
     private TextView stat;
-    // Known/not known buttons
-    private Button iknow;
-    private Button dontknow;
+
     private Button nextQ;
     private DBHelper db;
     private QManager qm;
     private int cat;
-    private final String [] categories = {"All", "Core Java", "OOP Concepts", "Exception Handling", "Multithreading"};
+    private final String [] categories = {"All", "Core Java", "OOP Concepts", "Exception Handling", "Multithreading", "Collections"};
 
     //The onCreate function is called when your app is run and
     // it is expected to create the view and do the whatever the Activity is concerned with.
@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         //Database
         db = new DBHelper(this);
         qm = new QManager(db);
-        //db.deleteDb(this);
+        db.deleteDb(this);
 
         questions = new ArrayList<>();
         questions = db.getAllQuestions();
@@ -73,7 +73,6 @@ public class MainActivity extends ActionBarActivity {
 
         // change the view to the new question.XML file
         setContentView(R.layout.question);
-        // TODO: Display first question to user and then let knownClick() handle the rest
         myTextView = (TextView) findViewById(R.id.textView);
         myTextView.setText(questions.get(currentQ).getQuestion());
         nextQ = (Button) findViewById(R.id.nextQ);
@@ -88,17 +87,19 @@ public class MainActivity extends ActionBarActivity {
         // lets try initializing all the vars when button is pressed
         known = (TextView) findViewById(R.id.known);
         // myTextView is used to show both the question and the answer
-        myTextView = (TextView) findViewById(R.id.textView);
-        iknow = (Button) findViewById(R.id.iknow);
-        dontknow = (Button) findViewById(R.id.dontknow);
+        TextView tv = (TextView) findViewById(R.id.textView);
+        Button iKnow = (Button) findViewById(R.id.iknow);
+        Button dontKnow = (Button) findViewById(R.id.dontknow);
         nextQ = (Button) findViewById(R.id.nextQ);
         ListIterator it = questions.listIterator(currentQ+1);
         // find the object for the button and call setText
         // change the text of the button to "answer" or "next question"
-        iknow.setVisibility(View.INVISIBLE);
-        dontknow.setVisibility(View.INVISIBLE);
+        iKnow.setVisibility(View.INVISIBLE);
+        dontKnow.setVisibility(View.INVISIBLE);
         nextQ.setVisibility(View.VISIBLE);
-        //
+
+        // set scroller
+        tv.setMovementMethod(new ScrollingMovementMethod());
 
         Button thisButton = (Button) v;
         int id = questions.get(currentQ).getId();
@@ -109,28 +110,29 @@ public class MainActivity extends ActionBarActivity {
                 updateStats();
                 currentQ++;
                 if (it.hasNext()) {
-                    myTextView.setText(questions.get(currentQ).getQuestion());
+                    tv.setText(questions.get(currentQ).getQuestion());
+
                 }
                 else
                     goHome();
-                iknow.setVisibility(View.VISIBLE);
-                dontknow.setVisibility(View.VISIBLE);
+                iKnow.setVisibility(View.VISIBLE);
+                dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
                 break;
             case R.id.dontknow:
                 db.setNotKnown(id);
                 updateStats();
                 if (it.hasNext()) {
-                    myTextView.setText(questions.get(currentQ).getAnswer());
+                    tv.setText(questions.get(currentQ).getAnswer());
                     currentQ++;
                 }
                 else
                     goHome();
                 break;
             case R.id.nextQ:
-                myTextView.setText(questions.get(currentQ).getQuestion());
-                iknow.setVisibility(View.VISIBLE);
-                dontknow.setVisibility(View.VISIBLE);
+                tv.setText(questions.get(currentQ).getQuestion());
+                iKnow.setVisibility(View.VISIBLE);
+                dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
                 break;
 
@@ -141,8 +143,7 @@ public class MainActivity extends ActionBarActivity {
     public void updateStats() {
         int count = db.getKnownCount();
         int totalcount = db.getTotalCount();
-        if (known != null)
-            known.setText(" " + count + " of the " + totalcount + " questions.");
+        known.setText(" " + count + " of the " + totalcount + " questions.");
     }
 
     @Override
@@ -215,11 +216,9 @@ public class MainActivity extends ActionBarActivity {
     public void goHome(){
         setContentView(R.layout.activity_main);
         spinner();
-        updateStats();
+        //updateStats();
         currentQ = 0;
 
-        
+
     }
-
-
 }

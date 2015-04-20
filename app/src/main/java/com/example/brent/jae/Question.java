@@ -1,3 +1,4 @@
+
 package com.example.brent.jae;
 
 /**
@@ -14,22 +15,16 @@ public class Question {
     public Question(){
 
     }
-    public Question(int id, int category, int known, String question, String answer){
-        this.id = id;
+    public Question(int category, int known, String question, String answer){
         this.category = category;
         this.known = known;
         this.answer = answer;
         this.question = question;
     }
 
+    public int getId(){return this.id;};
 
-    public int getId() {
-        return this.id;
-    }
-
-    public void setID(int id) {
-        this.id = id;
-    }
+    public void setId(int id){this.id = id;};
 
     public int getCategory() {
         return category;
@@ -64,3 +59,4 @@ public class Question {
     }
 
 }
+
