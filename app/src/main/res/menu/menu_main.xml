@@ -6,23 +6,14 @@
         android:orderInCategory="100"
         app:showAsAction="never"
         />
-<<<<<<< HEAD
     <item android:id="@+id/home"
         android:title="Home"
         app:showAsAction="ifRoom"
         />
     <item android:id="@+id/exit"
         android:title="Exit"
-=======
-    <item android:id="@+id/action_cat"
-        android:title="Categories"
->>>>>>> 6279b30c18f6db1cfc18d4e3a75395bbd50f34e6
         />
     <item android:id="@+id/about"
         android:title="About"
         />
 </menu>
-<<<<<<< HEAD
-
-=======
->>>>>>> 6279b30c18f6db1cfc18d4e3a75395bbd50f34e6

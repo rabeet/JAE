@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         //Database
         db = new DBHelper(this);
         qm = new QManager(db);
-        db.deleteDb(this);
+       // db.deleteDb(this);
 
         questions = new ArrayList<>();
         questions = db.getAllQuestions();
