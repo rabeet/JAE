@@ -71,7 +71,6 @@ public class MainActivity extends ActionBarActivity {
 
         // change the view to the new question.XML file
         setContentView(R.layout.question);
-        // TODO: Display first question to user and then let knownClick() handle the rest
         myTextView = (TextView) findViewById(R.id.textView);
         myTextView.setText(questions.get(currentQ).getQuestion());
         nextQ = (Button) findViewById(R.id.nextQ);
@@ -82,20 +81,20 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void knownClick(View v) {
-        Button iknow;
-        Button dontknow;
+        Button iKnow;
+        Button dontKnow;
         // lets try initializing all the vars when button is pressed
         known = (TextView) findViewById(R.id.known);
         // myTextView is used to show both the question and the answer
         myTextView = (TextView) findViewById(R.id.textView);
-        iknow = (Button) findViewById(R.id.iknow);
-        dontknow = (Button) findViewById(R.id.dontknow);
+        iKnow = (Button) findViewById(R.id.iknow);
+        dontKnow = (Button) findViewById(R.id.dontknow);
         nextQ = (Button) findViewById(R.id.nextQ);
         ListIterator it = questions.listIterator(currentQ+1);
         // find the object for the button and call setText
         // change the text of the button to "answer" or "next question"
-        iknow.setVisibility(View.INVISIBLE);
-        dontknow.setVisibility(View.INVISIBLE);
+        iKnow.setVisibility(View.INVISIBLE);
+        dontKnow.setVisibility(View.INVISIBLE);
         nextQ.setVisibility(View.VISIBLE);
         //
 
@@ -112,8 +111,8 @@ public class MainActivity extends ActionBarActivity {
                 }
                 else
                     goHome();
-                iknow.setVisibility(View.VISIBLE);
-                dontknow.setVisibility(View.VISIBLE);
+                iKnow.setVisibility(View.VISIBLE);
+                dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
                 break;
             case R.id.dontknow:
@@ -128,8 +127,8 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case R.id.nextQ:
                 myTextView.setText(questions.get(currentQ).getQuestion());
-                iknow.setVisibility(View.VISIBLE);
-                dontknow.setVisibility(View.VISIBLE);
+                iKnow.setVisibility(View.VISIBLE);
+                dontKnow.setVisibility(View.VISIBLE);
                 nextQ.setVisibility(View.INVISIBLE);
                 break;
 
