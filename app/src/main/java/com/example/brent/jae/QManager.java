@@ -29,11 +29,10 @@ public class QManager {
      *  Method to populate the database with initial information and returns a list that is
      *  gathered from the database.
      *
-     * @return
      */
     public void initData(){
 
-        //questions = new ArrayList<Question>();
+
         //                 0,        1,            2,               3,                   4                  5
         // categories = {"All", "Core Java", "OOP Concepts", "Exception Handling", "Multithreading", "Collections"};
 
