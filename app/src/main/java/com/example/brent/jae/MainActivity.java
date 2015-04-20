@@ -24,8 +24,8 @@ import java.util.ListIterator;
 
 public class MainActivity extends ActionBarActivity {
 
-    private int qCount = 0;
-    private int aCount = 0;
+
+    private int currentQ = 0;
     private int totalQuestions;
     private int totalKnown;
     private List<Question> questions;
@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
     // Known/not known buttons
     private Button iknow;
     private Button dontknow;
-    private Button mainbutton;
+    private Button nextQ;
     private DBHelper db;
     private QManager qm;
     private int cat;
@@ -52,19 +52,6 @@ public class MainActivity extends ActionBarActivity {
         // R is a resource object that links between the java code and resources created as XML files
         setContentView(R.layout.activity_main);
 
-        // Make stats invis at the start of the app
-        known = (TextView) findViewById(R.id.known);
-        stat = (TextView) findViewById(R.id.stats);
-        stat.setVisibility(View.GONE);
-        known.setVisibility(View.GONE);
-
-        // Make known button at the start of the app as well
-        iknow = (Button) findViewById(R.id.iknow);
-        dontknow = (Button) findViewById(R.id.dontknow);
-        mainbutton = (Button) findViewById(R.id.button);
-        iknow.setVisibility(View.GONE);
-        dontknow.setVisibility(View.GONE);
-
         //Database
         db = new DBHelper(this);
         qm = new QManager(db);
@@ -76,176 +63,86 @@ public class MainActivity extends ActionBarActivity {
         if (questions.isEmpty())
             qm.initData();
         spinner();
-        /*
-        // spinner listener
-        AdapterView.OnItemSelectedListener onSpinner = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cat = position;
 
-                /* // testing the output of item selected
-                TextView myTextView = (TextView) findViewById(R.id.textView2);
-                // position is the index of the string array
-                myTextView.setText(Integer.toString(position));
-                */
-        /*
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, categories);
-        Spinner spinner = (Spinner) findViewById(R.id.mainSpinner);
-        spinner.setAdapter(stringArrayAdapter);
-        spinner.setOnItemSelectedListener(onSpinner);
-        */
     }
 
     public void buttonOnClick(View v){
-        // get rid of the spinner
-        //questions = new ArrayList();
-        Spinner spinner = (Spinner) findViewById(R.id.mainSpinner);
-        spinner.setVisibility(View.GONE);
-        // get rid of the textView2
-        TextView tv = (TextView) findViewById(R.id.textView2);
-        tv.setVisibility(View.GONE);
-        stat.setVisibility(View.VISIBLE);
-        known.setVisibility(View.VISIBLE);
-        // Update the num here to grab the latest num of known
-        updateStats();
 
         qm = new QManager(db);
         questions = qm.getCat(cat);
+
+        // change the view to the new question.XML file
+        setContentView(R.layout.question);
+        // TODO: Display first question to user and then let knownClick() handle the rest
         myTextView = (TextView) findViewById(R.id.textView);
-        // set object to button v. cast "Button" to object v
-        Button button = (Button) v;
-
-        // Make this button invis after initial screen
-
-        // if the list is empty then the database needs to be initialized
-
-        ListIterator it = questions.listIterator(aCount);
-        // find the object for the button and call setText
-        // change the text of the button to "answer" or "next question"
-        if ((qCount & 1) == 0) { // even is if it is a question
-            mainbutton.setVisibility(View.INVISIBLE);
-            iknow.setVisibility(View.VISIBLE);
-            dontknow.setVisibility(View.VISIBLE);
-            button.setText("Next Question");
-            if (it.hasNext()) { // try to catch IOB exception
-                myTextView.setText(questions.get(aCount).getQuestion());
-                qCount++;
-
-            }
-            else{
-                myTextView.setText("That's all the questions for that category. Going home.");
-                //button.setText("Go to Categories");
-                // SystemClock.sleep(1000);
-                mainbutton.setText("Test My Knowledge");
-                iknow.setVisibility(View.GONE);
-                dontknow.setVisibility(View.GONE);
-                setContentView(R.layout.activity_main);
-                spinner();
-                aCount = 0;
-                qCount = 0;
-                //spinner.setVisibility(View.VISIBLE);
-
-            }
-        }
-        else{ // odd is if it is an answer
-            button.setText("Next Question");
-//            iknow.setVisibility(View.VISIBLE);
-//            dontknow.setVisibility(View.VISIBLE);
-            if(it.hasNext()) { // try to catch IOB exception
-                myTextView.setText(questions.get(aCount).getAnswer());
-                qCount++;
-                aCount++;
-            }
-            else{
-                myTextView.setText("That's all the questions for that category. Choose another category?");
-                mainbutton.setText("Test My Knowledge");
-                iknow.setVisibility(View.GONE);
-                dontknow.setVisibility(View.GONE);
-                //button.setText("Go to Categories");
-                setContentView(R.layout.activity_main);
-            }
-        }
+        myTextView.setText(questions.get(currentQ).getQuestion());
+        nextQ = (Button) findViewById(R.id.nextQ);
+        nextQ.setVisibility(View.INVISIBLE);
+        known = (TextView) findViewById(R.id.known);
+        updateStats();
 
     }
 
     public void knownClick(View v) {
-        ListIterator it = questions.listIterator(aCount);
+
+        // lets try initializing all the vars when button is pressed
+        known = (TextView) findViewById(R.id.known);
+        // myTextView is used to show both the question and the answer
+        myTextView = (TextView) findViewById(R.id.textView);
+        iknow = (Button) findViewById(R.id.iknow);
+        dontknow = (Button) findViewById(R.id.dontknow);
+        nextQ = (Button) findViewById(R.id.nextQ);
+        ListIterator it = questions.listIterator(currentQ+1);
         // find the object for the button and call setText
         // change the text of the button to "answer" or "next question"
         iknow.setVisibility(View.INVISIBLE);
         dontknow.setVisibility(View.INVISIBLE);
-        mainbutton.setVisibility(View.VISIBLE);
+        nextQ.setVisibility(View.VISIBLE);
+        //
 
-        Button thisbutton = (Button) v;
-        Log.d("Button", thisbutton.getText().toString());
-        if ((qCount & 1) == 0) { // even is if it is a question
-//            button.setText("Answer");
-            Log.d("Displaying question?", "QUESTION");
-            if (it.hasNext()) { // try to catch IOB exception
-                myTextView.setText(questions.get(aCount).getQuestion());
-                qCount++;
+        Button thisButton = (Button) v;
+        int id = questions.get(currentQ).getId();
 
-            }
-            else{
-                myTextView.setText("That's all the questions for that category. Going home.");
-                mainbutton.setText("Test My Knowledge");
-                iknow.setVisibility(View.GONE);
-                dontknow.setVisibility(View.GONE);
-                //button.setText("Go to Categories");
-                // SystemClock.sleep(1000);
-                setContentView(R.layout.activity_main);
-                spinner();
-                aCount = 0;
-                qCount = 0;
-                //spinner.setVisibility(View.VISIBLE);
-
-            }
-        }
-        else{ // odd is if it is an answer
-//            button.setText("Next Question");
-            Log.d("Displaying answer?", "ANSWER");
-            Log.d("Question ID: ", ""+(questions.get(aCount).getId()));
-            int id = questions.get(aCount).getId();
-            if(it.hasNext()) { // try to catch IOB exception
-                myTextView.setText(questions.get(aCount).getAnswer());
-                qCount++;
-                aCount++;
-
-                // Update database here as well
-                if (thisbutton.getText().equals("I Know this question")) {
-                    db.setKnown(id);
-                    Log.d("Num known", ""+db.getKnownCount());
-                    updateStats();
+        switch(v.getId()){
+            case R.id.iknow:
+                db.setKnown(id);
+                updateStats();
+                currentQ++;
+                if (it.hasNext()) {
+                    myTextView.setText(questions.get(currentQ).getQuestion());
                 }
-                else {
-                    db.setNotKnown(id);
-                    Log.d("Num known", ""+db.getKnownCount());
-                    updateStats();
+                else
+                    goHome();
+                iknow.setVisibility(View.VISIBLE);
+                dontknow.setVisibility(View.VISIBLE);
+                nextQ.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.dontknow:
+                db.setNotKnown(id);
+                updateStats();
+                if (it.hasNext()) {
+                    myTextView.setText(questions.get(currentQ).getAnswer());
+                    currentQ++;
                 }
-            }
-            else{
-                myTextView.setText("That's all the questions for that category. Choose another category?");
-                mainbutton.setText("Test My Knowledge");
-                iknow.setVisibility(View.GONE);
-                dontknow.setVisibility(View.GONE);
-                //button.setText("Go to Categories");
-                setContentView(R.layout.activity_main);
-            }
+                else
+                    goHome();
+                break;
+            case R.id.nextQ:
+                myTextView.setText(questions.get(currentQ).getQuestion());
+                iknow.setVisibility(View.VISIBLE);
+                dontknow.setVisibility(View.VISIBLE);
+                nextQ.setVisibility(View.INVISIBLE);
+                break;
+
         }
+
     }
 
     public void updateStats() {
         int count = db.getKnownCount();
         int totalcount = db.getTotalCount();
-        known.setText(" " + count + " of the " + totalcount + " questions.");
+        if (known != null)
+            known.setText(" " + count + " of the " + totalcount + " questions.");
     }
 
     @Override
@@ -267,7 +164,11 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()){
-            case R.id.action_cat:
+            case R.id.exit:
+                exit(); // exit the program
+                return true;
+            case R.id.home:
+                goHome();
                 return true;
             case R.id.about:
                 setContentView(R.layout.about);
@@ -275,15 +176,7 @@ public class MainActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-        /*
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            setContentView(R.layout.category);
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-        */
     }
 
     public void spinner(){
@@ -311,6 +204,21 @@ public class MainActivity extends ActionBarActivity {
         Spinner spinner = (Spinner) findViewById(R.id.mainSpinner);
         spinner.setAdapter(stringArrayAdapter);
         spinner.setOnItemSelectedListener(onSpinner);
+    }
+    // method to exit app when exit is called from the settings
+    public void exit(){
+        finish();
+        System.exit(0);
+    }
+
+    // method that takes user to homescreen
+    public void goHome(){
+        setContentView(R.layout.activity_main);
+        spinner();
+        updateStats();
+        currentQ = 0;
+
+        
     }
 
 

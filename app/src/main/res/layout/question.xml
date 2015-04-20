@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@color/button_material_light"
+    android:backgroundTint="#ffffffff">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:text="TEXT" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="You know"
+        android:textSize="15sp"
+        android:id="@+id/stats"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginBottom="47dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/nextQ"
+        android:layout_toStartOf="@+id/nextQ" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" 0"
+        android:textSize="15sp"
+        android:id="@+id/known"
+        android:layout_alignTop="@+id/stats"
+        android:layout_toRightOf="@+id/stats"
+        android:layout_toEndOf="@+id/stats"
+        style="@style/AppTheme" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I Know this question"
+        android:id="@+id/iknow"
+        android:onClick="knownClick"
+        android:longClickable="false"
+        android:clickable="true"
+        android:enabled="true"
+        android:typeface="serif"
+        android:textStyle="italic"
+        android:layout_above="@+id/stats"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I dont know this"
+        android:id="@+id/dontknow"
+        android:onClick="knownClick"
+        android:longClickable="false"
+        android:clickable="true"
+        android:enabled="true"
+        android:textStyle="italic"
+        android:layout_alignTop="@+id/iknow"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Question"
+        android:id="@+id/nextQ"
+        android:layout_above="@+id/iknow"
+        android:layout_centerHorizontal="true"
+        android:onClick="knownClick"
+        android:textStyle="italic" />
+
+</RelativeLayout>

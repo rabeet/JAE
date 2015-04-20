@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/button_material_light">
+    android:background="@color/button_material_light"
+    android:backgroundTint="#ffffffff">
 
     <Button
         android:layout_width="wrap_content"
@@ -35,70 +36,20 @@
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
-        android:layout_marginTop="81dp" />
+        android:layout_marginTop="81dp"
+        android:theme="@style/Widget.AppCompat.Spinner.DropDown" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Choose Category"
-        android:id="@+id/textView2"
+        android:id="@+id/main_cat"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/mainSpinner"
         android:layout_alignStart="@+id/mainSpinner"
-        android:layout_marginTop="43dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="You know"
-        android:textSize="15sp"
-        android:id="@+id/stats"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_below="@+id/dontknow"
-        android:layout_alignLeft="@+id/dontknow"
-        android:layout_alignStart="@id/dontknow"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_alignParentBottom="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=" 0"
-        android:textSize="15sp"
-        android:id="@+id/known"
-        android:layout_alignTop="@+id/stats"
-        android:layout_toRightOf="@+id/stats"
-        android:layout_toEndOf="@+id/stats"
-        style="@style/AppTheme" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I Know this question"
-        android:id="@+id/iknow"
-        android:onClick="knownClick"
-        android:longClickable="false"
-        android:clickable="true"
-        android:enabled="true"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I dont know this"
-        android:id="@+id/dontknow"
-        android:onClick="knownClick"
-        android:longClickable="false"
-        android:clickable="true"
-        android:enabled="true"
-        android:layout_below="@+id/iknow"
-        android:layout_alignLeft="@+id/iknow"
-        android:layout_alignStart="@+id/iknow" />
+        android:layout_marginTop="43dp"
+        android:typeface="monospace"
+        android:textStyle="bold|normal" />
 
 </RelativeLayout>
