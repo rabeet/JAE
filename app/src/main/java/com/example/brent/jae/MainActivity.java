@@ -83,14 +83,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void knownClick(View v) {
-        Button iKnow;
-        Button dontKnow;
+
         // lets try initializing all the vars when button is pressed
         known = (TextView) findViewById(R.id.known);
         // myTextView is used to show both the question and the answer
         TextView tv = (TextView) findViewById(R.id.textView);
-        iKnow = (Button) findViewById(R.id.iknow);
-        dontKnow = (Button) findViewById(R.id.dontknow);
+        Button iKnow = (Button) findViewById(R.id.iknow);
+        Button dontKnow = (Button) findViewById(R.id.dontknow);
         nextQ = (Button) findViewById(R.id.nextQ);
         ListIterator it = questions.listIterator(currentQ+1);
         // find the object for the button and call setText
@@ -99,12 +98,7 @@ public class MainActivity extends ActionBarActivity {
         dontKnow.setVisibility(View.INVISIBLE);
         nextQ.setVisibility(View.VISIBLE);
 
-        // try to use a scroller...
-        //ScrollView scroller = new ScrollView(this);
-        //TextView tv = (TextView) findViewById(R.id.textView);
-        //scroller.addView(tv);
-
-        // set scroller?
+        // set scroller
         tv.setMovementMethod(new ScrollingMovementMethod());
 
         Button thisButton = (Button) v;
