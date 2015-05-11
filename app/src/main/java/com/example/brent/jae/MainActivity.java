@@ -60,6 +60,8 @@ public class MainActivity extends ActionBarActivity {
         questions = new ArrayList<>();
         questions = db.getAllQuestions();
         totalQuestions = questions.size();
+        Log.d("WTF", "IS THIS");
+
         if (questions.isEmpty())
             qm.initData();
         spinner();
@@ -70,6 +72,13 @@ public class MainActivity extends ActionBarActivity {
 
         qm = new QManager(db);
         questions = qm.getCat(cat);
+
+        for (Question q : questions) {
+            String quest = q.getQuestion();
+            String answ = q.getAnswer();
+            int catego = q.getCategory();
+            Log.d("Q","\nQuestion: " + quest + "\nAnswer: " + answ + "\nCategory: " + catego);
+        }
 
         // change the view to the new question.XML file
         setContentView(R.layout.question);
